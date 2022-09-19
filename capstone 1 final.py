@@ -7,6 +7,8 @@ pasien={
     'SLM1':{'nama':'Hector','gender': 'Pria', 'umur':'68','penyakit':'Stroke'}
 }
 
+
+
 def konfirmasi_hapus():
     print('')
     print('Apakah yakin? \n1.Ya\n2.Tidak')
@@ -18,20 +20,24 @@ def konfirmasi_hapus():
 
 def ceknopasien1():
     cek=input('Masukan ID pasien\t:').upper()
-    if cek not in pasien.keys() and cek.isalnum() and (not cek.isalpha()) and (not cek.isnumeric()):
-        global nopasien
-        nopasien=cek.upper()
-    elif cek not in pasien.keys() and cek.isnumeric():
-        print('ID pasien hanya memiliki angka')
-        print('iD pasien harus mengandung huruf dan angka')
+    if " " in cek:
+        print('ID tidak boleh mengandung spasi')
         ceknopasien1()
-    elif cek not in pasien.keys() and cek.isalpha():
-        print('ID pasien hanya memiliki huruf')
-        print('ID pasien harus mengandung huruf dan angka')
-        ceknopasien1()
-    elif cek in pasien.keys():
-        print('ID Pasien sudah tersedia\n')
-        ceknopasien1()
+    else:
+        if cek not in pasien.keys() and cek.isalnum() and (not cek.isalpha()) and (not cek.isnumeric()):
+            global nopasien
+            nopasien=cek.upper()
+        elif cek not in pasien.keys() and cek.isnumeric():
+            print('ID pasien hanya memiliki angka')
+            print('iD pasien harus mengandung huruf dan angka')
+            ceknopasien1()
+        elif cek not in pasien.keys() and cek.isalpha():
+            print('ID pasien hanya memiliki huruf')
+            print('ID pasien harus mengandung huruf dan angka')
+            ceknopasien1()
+        elif cek in pasien.keys():
+            print('ID Pasien sudah tersedia\n')
+            ceknopasien1()
 
 def ceknopasien2():
     cek=input('Masukan ID pasien\t:').upper()
@@ -45,16 +51,11 @@ def ceknopasien2():
 
 def ceknama():
     cek=input('Masukan Nama\t:')
-    if cek.isalpha():
-        if cek.replace(" ","").isalpha:
-            print("Nama Sesuai")
-            global nama_tambah
-            nama_tambah=cek.title()
-        else:
-            print("Nama Tidak sesuai format")
-            ceknama()
+    if cek.replace(" ","").isalpha():
+        global nama_tambah
+        nama_tambah=cek.title()
     else:
-        print('Nama hanya boleh mengandung huruf')
+        print("Nama Tidak sesuai format")
         ceknama()
 
 def cekumur():
@@ -83,31 +84,31 @@ def cekgender():
         cekgender()
 
 def MenuUtama():
-        print('''
-        +Lovendo Medical Center database+\n
-        1. Tampilkan data Pasien
-        2. Tambah Pasien
-        3. Mengubah Info Pasien
-        4. Menghapus Info Pasien
-        5. Exit
-        ''')
-        pilihan = input("Masukkan Pilihan: ")
-        if pilihan == '1':
-            Menampilkan()
-        elif pilihan == '2':
-            Menambahkan()
-        elif pilihan == '3':
-            Mengubah()
-        elif pilihan == '4':
-            Menghapus()
-        elif pilihan == '5':
-            print('Sampai Jumpa')
-        else:
-            print('Pilihan tidak tersedia')
-            MenuUtama()
+    print('''
+    +Lovelace Medical Center Database+\n
+    1. Tampilkan data Pasien
+    2. Tambah Pasien
+    3. Mengubah Info Pasien
+    4. Menghapus Info Pasien
+    5. Exit
+    ''')
+    pilihan = input("Masukkan Pilihan: ")
+    if pilihan == '1':
+        Menampilkan()
+    elif pilihan == '2':
+        Menambahkan()
+    elif pilihan == '3':
+        Mengubah()
+    elif pilihan == '4':
+        Menghapus()
+    elif pilihan == '5':
+        print('Sampai Jumpa')   
+    else:
+        print('Pilihan tidak tersedia')
+        MenuUtama()
 
 def Menambahkan(): #untuk menambah data
-    print('\n\nMenu Tambah Pasien\n1. Tambah Pasien\n2. Back')
+    print('\n\nMenu Tambah Pasien\n1. Tambah Pasien\n2. Kembali')
     input_user1=input('Masukkan Angka Yang Ingin Dijalankan\t:')
     if input_user1 == "1":
         ceknopasien1()
@@ -138,7 +139,7 @@ def Menambahkan(): #untuk menambah data
             Menambahkan()
         
     elif input_user1 == "2":
-        print('\nApakah Anda Ingin Ingin Meninggalkan Menu Update Data?\n1.Ya\n2.Tidak')
+        print('\nApakah Anda Ingin Ingin Meninggalkan Menu Tambah Pasien?\n1.Ya\n2.Tidak')
         input_user2 = input("Masukkan Angka\t: ")
         if input_user2 == "1":
             MenuUtama()
@@ -151,18 +152,18 @@ def Menambahkan(): #untuk menambah data
   
 
 def Mengubah(): #untuk mengupdate data
-    print('\n\nMenu Update Data\n1. Update Data Pasien\n2. Back')
+    print('\n\nMenu Ubah Data Pasien\n1. Ubah Data Pasien\n2. Kembali')
     input_user1=input('Masukkan Angka Yang Ingin Dijalankan\t:')
 
     if input_user1 == "1":
         ceknopasien2()
         print('ID\t|Nama\t\t\t\t|Gender\t\t|Umur\t|Penyakit')
         print(f"{nopasien}\t|{pasien[nopasien]['nama']}\t\t\t\t|{pasien[nopasien]['gender']}\t\t|{pasien[nopasien]['umur']}\t|{pasien[nopasien]['penyakit']}")
-        print('\nApakah Anda Ingin Mengupdate Data Ini?\n1.Ya\n2.Tidak')
+        print('\nApakah Anda Ingin Mengubah Data Ini?\n1.Ya\n2.Tidak')
         input_user1 = input("Masukkan Angka\t: ")
         if input_user1 == "1":
             print('\nNama Kolom Yang Akan Diganti?')
-            print('1. Nama\n2. Umur\n3. Gender\n4. Penyakit')
+            print('1. Nama\n2. Gender\n3. Umur\n4. Penyakit')
             input_user1 = input("Kolom yang diganti\t:")
             if input_user1 == "1":
                 input_nama = input("Masukkan Nama Yang Baru\t:").title()
@@ -207,7 +208,7 @@ def Mengubah(): #untuk mengupdate data
             Mengubah()
 
     elif input_user1 == "2":
-            print('\nApakah Anda Ingin Ingin Meninggalkan Menu Update Data?\n1.Ya\n2.Tidak')
+            print('\nApakah Anda Ingin Ingin Meninggalkan Ubah Data Pasien?\n1.Ya\n2.Tidak')
             input_user3 = input("Masukkan Angka\t: ")
             if input_user3 == "1":
                 MenuUtama()
@@ -221,7 +222,7 @@ def Mengubah(): #untuk mengupdate data
         Mengubah()
 
 def Menghapus(): #untuk menghapus data
-    print('\n\nMenu Menghapus Pasien\n1. Hapus Pasien\n2. Back')
+    print('\n\nMenu Menghapus Pasien\n1. Hapus Pasien\n2. Kembali')
     input_user1=input('\nMasukkan Angka Yang Ingin Dijalankan\t:')
     if input_user1 == "1":
         kode_hapus = input("\nMasukkan Kode pasien: ").upper()
@@ -239,7 +240,7 @@ def Menghapus(): #untuk menghapus data
             print('\nData tidak ada')
             Menghapus()
     elif input_user1 == "2":
-        print('\nApakah Anda Ingin Ingin Meninggalkan Menu Update Data?\n1.Ya\n2.Tidak')
+        print('\nApakah Anda Ingin Ingin Meninggalkan Menghapus Pasien?\n1.Ya\n2.Tidak')
         input_user2 = input("Masukkan Angka\t: ")
         if input_user2 == "1":
             MenuUtama()
@@ -254,43 +255,39 @@ def Menghapus(): #untuk menghapus data
         Menghapus()
 
 def Menampilkan(): #untuk menampilkan data
-        print('\n\nMenu tampil pasien\n1. Tampilkan seluruh data pasien\n2. Tampilkan data pasien spesifik\n3. Back')
-        input_user1=input('\nMasukkan Angka Yang Ingin Dijalankan\t:')
-        if input_user1 == "1":
-            if pasien == {}:
-                print('Tidak ada data')
-                MenuUtama()
-            else:
-                print('\nID\t|Nama\t\t\t\t|Gender\t|Umur\t|Penyakit')
-                for i in pasien:
-                    print(f"{i}\t|{pasien[i]['nama']}\t\t\t\t|{pasien[i]['gender']}\t|{pasien[i]['umur']}\t|{pasien[i]['penyakit']}")
+    print('\n\nMenu tampil pasien\n1. Tampilkan seluruh data pasien\n2. Tampilkan data pasien spesifik\n3. Kembali')
+    input_user1=input('\nMasukkan Angka Yang Ingin Dijalankan\t:')
+    if input_user1 == "1":
+        if pasien == {}:
+            print('Tidak ada data')
             Menampilkan()
-        elif input_user1 == "2":
-            nopasien=input('Masukan ID pasien\t:').upper()
-            if nopasien in pasien.keys() and nopasien.isalnum():
-                print('ID\t|Nama\t\t\t\t|Gender\t\t|Umur\t|Penyakit')
-                print(f"{nopasien}\t|{pasien[nopasien]['nama']}\t\t\t\t|{pasien[nopasien]['gender']}\t\t|{pasien[nopasien]['umur']}\t|{pasien[nopasien]['penyakit']}")
-                Menampilkan()
-            else:
-                print('\nID pasien tidak ada')
-                Menampilkan()
-        elif input_user1 == "3":
-            print('\nApakah Anda Ingin Ingin Meninggalkan Menu Tampilkan Data?\n1.Ya\n2.Tidak')
-            input_user2 = input("Masukkan Angka\t: ")
-            if input_user2 == "1":
-                MenuUtama()
-            elif input_user2 == "2":
-                Menampilkan()
-            else:
-                print('\nMasukan sesuai angka yang tersedia')
-                Menampilkan()
+        else:
+            print('\nID\t|Nama\t\t\t\t|Gender\t|Umur\t|Penyakit')
+            for i in pasien:
+                print(f"{i}\t|{pasien[i]['nama']}\t\t\t\t|{pasien[i]['gender']}\t|{pasien[i]['umur']}\t|{pasien[i]['penyakit']}")
+            Menampilkan()
+    elif input_user1 == "2":
+        nopasien=input('Masukan ID pasien\t:').upper()
+        if nopasien in pasien.keys() and nopasien.isalnum():
+            print('ID\t|Nama\t\t\t\t|Gender\t\t|Umur\t|Penyakit')
+            print(f"{nopasien}\t|{pasien[nopasien]['nama']}\t\t\t\t|{pasien[nopasien]['gender']}\t\t|{pasien[nopasien]['umur']}\t|{pasien[nopasien]['penyakit']}")
+            Menampilkan()
+        else:
+            print('\nID pasien tidak ada')
+            Menampilkan()
+    elif input_user1 == "3":
+        print('\nApakah Anda Ingin Ingin Meninggalkan Menu Tampilkan Data?\n1.Ya\n2.Tidak')
+        input_user2 = input("Masukkan Angka\t: ")
+        if input_user2 == "1":
+            MenuUtama()
+        elif input_user2 == "2":
+            Menampilkan()
         else:
             print('\nMasukan sesuai angka yang tersedia')
             Menampilkan()
+    else:
+        print('\nMasukan sesuai angka yang tersedia')
+        Menampilkan()
 
 MenuUtama()
-# Menampilkan()
-# Menghapus()
-# Mengubah()
-# Menambahkan()
-# ceknopasien1()
+
